@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script language="JavaScript">
+        function toggle(source) {
+             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+             for (var i = 0; i < checkboxes.length; i++) {
+                 if (checkboxes[i] != source)
+                     checkboxes[i].checked = source.checked;
+             }
+         }
+     </script>
+
     <div class="conteudo">
         <p>
             <label for="nova-tarefa">Adicionar Tarefa</label>
@@ -33,6 +43,12 @@
                 <input type="checkbox" checked="">
                 <label>Lavar a louça</label>
                 <button class="apagar">Apagar</button>
+            </li>
+        </ul>
+        <h3>Concluir</h3>
+        <ul id = 'concluir'>
+            <li>
+                <button onClick="toggle(this)">Recomeçar!<button/>
             </li>
         </ul>
     </div>
