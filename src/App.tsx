@@ -1,25 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [tarefa, setTarefa] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className='header'>
+        <h1>Lista de tarefas</h1>
+        <div>
+          <input type='text' value={tarefa} placeholder='Digite sua tarefa'/>
+          <button>Adicionar</button>
+        </div>
+      </div>
+      
+  </div>
   );
 }
 
