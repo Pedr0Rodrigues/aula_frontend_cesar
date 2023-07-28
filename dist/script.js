@@ -30,7 +30,7 @@ let adicionaTarefa = function () {
         let tarefa = criarTarefa(novaTarefaInput.value);
         listaTarefasIncompletas.appendChild(tarefa);
     }
-    {
+    else {
         alert("A tarefa deve ter ao menos um caractere");
     }
 };
