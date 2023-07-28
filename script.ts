@@ -13,7 +13,7 @@ type Tarefa = {
 }
 let listaTarefas: Tarefa[] = JSON.parse(localStorage.getItem("listaTarefas") || "[]");
 
-let criarTarefa = function (descricaoTarefa: string) {
+let criarTarefa = function (descricaoTarefa: string, completaTarefa: boolean) {
     // <li>
     //     <input type="checkbox">
     //     <label>Pagar as contas</label>
@@ -33,12 +33,13 @@ let criarTarefa = function (descricaoTarefa: string) {
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
-
+    checkbox.checked = completaTarefa;
    
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
     tarefa.appendChild(botaoEditar);
+    
 
     botaoEditar.onclick = () => {
         botaoEditar.parentElement.remove();
@@ -72,6 +73,19 @@ function validaTextoTarefa(texto: string) {
 }
 
 
+
+
+let carregarLocal = function () {
+    JSON.parse(localStorage.getItem("listaTarefas")).forEach((element: Tarefa) => {
+        if (element.completa === true) {
+            listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa))
+        } 
+        else {
+            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa)) 
+        }
+    });
+}
+
 let recarregarLocal = function() {
     location.reload();
 };
@@ -80,16 +94,6 @@ let salvarLocal = function () {
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
 }
 
-let carregarLocal = function () {
-    JSON.parse(localStorage.getItem("listaTarefas")).forEach((element: Tarefa) => {
-        if (element.completa === true) {
-            listaTarefasCompletas.appendChild(criarTarefa(element.descrição))
-        } 
-        else {
-            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição)) 
-        }
-    });
-}
 
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {

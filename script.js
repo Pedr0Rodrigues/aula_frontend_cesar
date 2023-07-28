@@ -6,7 +6,7 @@ var botaoLimpar = document.getElementById('botao-limpar');
 var listaTarefasCompletas = document.getElementById('completas');
 var listaTarefasIncompletas = document.getElementById('incompletas');
 var listaTarefas = JSON.parse(localStorage.getItem("listaTarefas") || "[]");
-var criarTarefa = function (descricaoTarefa) {
+var criarTarefa = function (descricaoTarefa, completaTarefa) {
     // <li>
     //     <input type="checkbox">
     //     <label>Pagar as contas</label>
@@ -24,6 +24,7 @@ var criarTarefa = function (descricaoTarefa) {
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
+    checkbox.checked = completaTarefa;
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
@@ -53,21 +54,21 @@ var criarTarefa = function (descricaoTarefa) {
 function validaTextoTarefa(texto) {
     return texto.length > 0;
 }
+var carregarLocal = function () {
+    JSON.parse(localStorage.getItem("listaTarefas")).forEach(function (element) {
+        if (element.completa === true) {
+            listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa));
+        }
+        else {
+            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa));
+        }
+    });
+};
 var recarregarLocal = function () {
     location.reload();
 };
 var salvarLocal = function () {
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-};
-var carregarLocal = function () {
-    JSON.parse(localStorage.getItem("listaTarefas")).forEach(function (element) {
-        if (element.completa === true) {
-            listaTarefasCompletas.appendChild(criarTarefa(element.descrição));
-        }
-        else {
-            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição));
-        }
-    });
 };
 var adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
