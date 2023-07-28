@@ -34,6 +34,19 @@ let criarTarefa = function (descricaoTarefa: string) {
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
 
+    botaoEditar.onclick = () => {
+        botaoEditar.parentElement.remove();
+        listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
+        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+        novaTarefaInput.value = descricaoTarefa;
+    }
+
+    botaoApagar.onclick = () => {
+        botaoApagar.parentElement.remove();
+        listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
+        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+    }
+
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
@@ -55,10 +68,9 @@ let adicionaTarefa = function () {
         listaTarefasIncompletas.appendChild(tarefa);
         
         listaTarefas.push(tarefaIndex);
-        let stringIndex = JSON.stringify(listaTarefas)
-        localStorage.setItem("listaTarefas", stringIndex);
+        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
         console.log(localStorage);
-        console.log (JSON.parse(stringIndex))
+        novaTarefaInput.value = "";
     }
     else {
         console.log(listaTarefas)
