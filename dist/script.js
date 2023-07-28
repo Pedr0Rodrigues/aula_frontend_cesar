@@ -5,7 +5,7 @@ let botaoEditar = document.getElementsByClassName('botao-editar');
 let botaoLimpar = document.getElementById('botao-limpar');
 let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
-let tarefas;
+let listaTarefas = [];
 let criarTarefa = function (descricaoTarefa) {
     let tarefa = document.createElement("li");
     let checkbox = document.createElement("input");
@@ -29,10 +29,19 @@ function validaTextoTarefa(texto) {
 }
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
+        console.log(listaTarefas);
         let tarefa = criarTarefa(novaTarefaInput.value);
+        let tarefaDescricao = novaTarefaInput.value;
+        let tarefaIndex = { descrição: tarefaDescricao, completa: false };
         listaTarefasIncompletas.appendChild(tarefa);
+        listaTarefas.push(tarefaIndex);
+        let stringIndex = JSON.stringify(listaTarefas);
+        localStorage.setItem("listaTarefas", stringIndex);
+        console.log(localStorage);
+        console.log(JSON.parse(stringIndex));
     }
     else {
+        console.log(listaTarefas);
         alert("A tarefa deve ter ao menos um caractere");
     }
 };

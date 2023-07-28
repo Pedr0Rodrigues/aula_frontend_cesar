@@ -9,8 +9,9 @@ let listaTarefasIncompletas = document.getElementById('incompletas');
 type Tarefa = {
     descrição: string;
     completa: boolean;
+    //id: number;
 }
-let tarefas: Tarefa[];
+let listaTarefas: Tarefa[] = []
 
 let criarTarefa = function (descricaoTarefa: string) {
     // <li>
@@ -47,10 +48,20 @@ function validaTextoTarefa(texto: string) {
 
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
-        let tarefa = criarTarefa(novaTarefaInput.value)
+        console.log(listaTarefas)
+        let tarefa = criarTarefa(novaTarefaInput.value);
+        let tarefaDescricao = novaTarefaInput.value
+        let tarefaIndex: Tarefa =  {descrição: tarefaDescricao, completa: false}
         listaTarefasIncompletas.appendChild(tarefa);
+        
+        listaTarefas.push(tarefaIndex);
+        let stringIndex = JSON.stringify(listaTarefas)
+        localStorage.setItem("listaTarefas", stringIndex);
+        console.log(localStorage);
+        console.log (JSON.parse(stringIndex))
     }
     else {
+        console.log(listaTarefas)
         alert("A tarefa deve ter ao menos um caractere")
     }
 }
