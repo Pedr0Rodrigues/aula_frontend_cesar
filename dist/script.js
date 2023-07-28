@@ -27,7 +27,7 @@ let adicionaTarefa = function () {
         listaTarefasIncompletas.appendChild(tarefa);
     }
     {
-        alert: "A tarefa deve ter ao menos um caractere.";
+        alert("A tarefa deve ter ao menos um caractere.");
     }
 };
 botaoAdicionar.addEventListener('click', adicionaTarefa);
