@@ -1,6 +1,6 @@
 let novaTarefaInput = document.getElementById('nova-tarefa') as HTMLInputElement;
 let botaoAdicionar = document.getElementById('botao-adicionar');
-let botoaoApagar = document.getElementsByClassName('botao-apagar');
+let botaoApagar = document.getElementsByClassName('botao-apagar');
 let botaoEditar = document.getElementsByClassName('botao-editar');
 let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
@@ -10,7 +10,8 @@ let criarTarefa = function (descricaoTarefa: string) {
     // <li>
     //     <input type="checkbox">
     //     <label>Pagar as contas</label>
-    //     <button className="apagar">Apagar</button>
+    //     <button className="botao-apagar">Apagar</button>
+    //     <button className="botao-editar">Editar</button>
     // </li>
 
     let tarefa = document.createElement("li");
@@ -23,12 +24,15 @@ let criarTarefa = function (descricaoTarefa: string) {
     checkbox.type = 'checkbox';
     botaoApagar.className = 'apagar';
     botaoApagar.innerText = 'Apagar';
+    botaoEditar.className = 'editar';
+    botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
 
 
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
+    tarefa.appendChild(botaoEditar);
 
     return tarefa
 }
