@@ -13,7 +13,7 @@ type Tarefa = {
 }
 let listaTarefas: Tarefa[] = JSON.parse(localStorage.getItem("listaTarefas") || "[]");
 
-let criarTarefa = function (descricaoTarefa: string) {
+let criarTarefa = function (descricaoTarefa: string, completaTarefa: boolean) {
     // <li>
     //     <input type="checkbox">
     //     <label>Pagar as contas</label>
@@ -32,43 +32,86 @@ let criarTarefa = function (descricaoTarefa: string) {
     botaoApagar.innerText = 'Apagar';
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
+    
     label.innerText = descricaoTarefa;
-
+    checkbox.checked = completaTarefa;
+   
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
     tarefa.appendChild(botaoEditar);
 
+    botaoEditar.onclick = () => {
+        botaoEditar.parentElement.remove();
+        listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
+        salvarLocal();
+        novaTarefaInput.value = descricaoTarefa;
+    }
+
+    botaoApagar.onclick = () => {
+        botaoApagar.parentElement.remove();
+        listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
+        salvarLocal();
+    };
+    
+    checkbox.onclick = () => {
+        listaTarefas.forEach((tarefa) => {
+            if (tarefa.descrição == descricaoTarefa) {
+                tarefa.completa = checkbox.checked;
+            };
+        });
+        salvarLocal();
+        recarregarLocal();
+    };
+
     return tarefa;
-}
+};
 
 function validaTextoTarefa(texto: string) {
     return texto.length > 0;
+};
+
+let carregarLocal = function () {
+    JSON.parse(localStorage.getItem("listaTarefas")).forEach((element: Tarefa) => {
+        element.completa === true 
+        ? listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa))
+        : listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa)) 
+    });
+};
+
+let recarregarLocal = function() {
+    location.reload();
+};
+
+let salvarLocal = function () {
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
 }
 
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
-        console.log(listaTarefas)
-        let tarefa = criarTarefa(novaTarefaInput.value);
         let tarefaDescricao = novaTarefaInput.value
         let tarefaIndex: Tarefa =  {descrição: tarefaDescricao, completa: false}
-        listaTarefasIncompletas.appendChild(tarefa);
-        
         listaTarefas.push(tarefaIndex);
-        let stringIndex = JSON.stringify(listaTarefas)
-        localStorage.setItem("listaTarefas", stringIndex);
-        console.log(localStorage);
-        console.log (JSON.parse(stringIndex))
+        salvarLocal();
+        carregarLocal();
     }
     else {
         console.log(listaTarefas)
         alert("A tarefa deve ter ao menos um caractere")
     }
+    novaTarefaInput.value = "";
+    location.reload();
 }
+
+
 let limparTudo = function() {
     localStorage.clear();
     location.reload();
 }
 
+window.onload = () => {
+    carregarLocal()
+};
+
 botaoAdicionar.addEventListener('click', adicionaTarefa);
-botaoLimpar.addEventListener ('click', limparTudo)
+botaoLimpar.addEventListener ('click', limparTudo);
