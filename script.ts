@@ -34,7 +34,7 @@ let criarTarefa = function (descricaoTarefa: string) {
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
-   // tarefa.appendChild(botaoEditar);
+    tarefa.appendChild(botaoEditar);
 
     return tarefa;
 }

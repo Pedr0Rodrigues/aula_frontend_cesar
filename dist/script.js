@@ -19,6 +19,7 @@ let criarTarefa = function (descricaoTarefa) {
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
+    tarefa.appendChild(botaoEditar);
     return tarefa;
 };
 function validaTextoTarefa(texto) {
