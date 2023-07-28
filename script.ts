@@ -32,6 +32,7 @@ let criarTarefa = function (descricaoTarefa: string, completaTarefa: boolean) {
     botaoApagar.innerText = 'Apagar';
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
+    
     label.innerText = descricaoTarefa;
     checkbox.checked = completaTarefa;
    
@@ -39,7 +40,6 @@ let criarTarefa = function (descricaoTarefa: string, completaTarefa: boolean) {
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
     tarefa.appendChild(botaoEditar);
-    
 
     botaoEditar.onclick = () => {
         botaoEditar.parentElement.remove();
@@ -58,33 +58,26 @@ let criarTarefa = function (descricaoTarefa: string, completaTarefa: boolean) {
         listaTarefas.forEach((tarefa) => {
             if (tarefa.descrição == descricaoTarefa) {
                 tarefa.completa = checkbox.checked;
-            }
+            };
         });
         salvarLocal();
         recarregarLocal();
     };
-    
-        
+
     return tarefa;
-}
+};
 
 function validaTextoTarefa(texto: string) {
     return texto.length > 0;
-}
-
-
-
+};
 
 let carregarLocal = function () {
     JSON.parse(localStorage.getItem("listaTarefas")).forEach((element: Tarefa) => {
-        if (element.completa === true) {
-            listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa))
-        } 
-        else {
-            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa)) 
-        }
+        element.completa === true 
+        ? listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa))
+        : listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa)) 
     });
-}
+};
 
 let recarregarLocal = function() {
     location.reload();
@@ -93,7 +86,6 @@ let recarregarLocal = function() {
 let salvarLocal = function () {
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
 }
-
 
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
@@ -109,7 +101,6 @@ let adicionaTarefa = function () {
     }
     novaTarefaInput.value = "";
     location.reload();
-
 }
 
 
@@ -117,7 +108,6 @@ let limparTudo = function() {
     localStorage.clear();
     location.reload();
 }
-
 
 window.onload = () => {
     carregarLocal()

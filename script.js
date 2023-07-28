@@ -45,6 +45,7 @@ var criarTarefa = function (descricaoTarefa, completaTarefa) {
             if (tarefa.descrição == descricaoTarefa) {
                 tarefa.completa = checkbox.checked;
             }
+            ;
         });
         salvarLocal();
         recarregarLocal();
@@ -54,14 +55,12 @@ var criarTarefa = function (descricaoTarefa, completaTarefa) {
 function validaTextoTarefa(texto) {
     return texto.length > 0;
 }
+;
 var carregarLocal = function () {
     JSON.parse(localStorage.getItem("listaTarefas")).forEach(function (element) {
-        if (element.completa === true) {
-            listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa));
-        }
-        else {
-            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa));
-        }
+        element.completa === true
+            ? listaTarefasCompletas.appendChild(criarTarefa(element.descrição, element.completa))
+            : listaTarefasIncompletas.appendChild(criarTarefa(element.descrição, element.completa));
     });
 };
 var recarregarLocal = function () {
