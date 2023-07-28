@@ -24,15 +24,15 @@ let criarTarefa = function (descricaoTarefa: string) {
     checkbox.type = 'checkbox';
     botaoApagar.className = 'apagar';
     botaoApagar.innerText = 'Apagar';
-    botaoEditar.className = 'editar';
-    botaoEditar.innerText = 'Editar';
+    //botaoEditar.className = 'editar';
+    //botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
 
 
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
     tarefa.appendChild(botaoApagar);
-    tarefa.appendChild(botaoEditar);
+   // tarefa.appendChild(botaoEditar);
 
     return tarefa;
 }
