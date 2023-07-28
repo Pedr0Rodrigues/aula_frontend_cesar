@@ -34,23 +34,30 @@ let criarTarefa = function (descricaoTarefa: string) {
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
 
+   
+    tarefa.appendChild(checkbox);
+    tarefa.appendChild(label);
+    tarefa.appendChild(botaoApagar);
+    tarefa.appendChild(botaoEditar);
+
     botaoEditar.onclick = () => {
         botaoEditar.parentElement.remove();
         listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+        salvarLocal();
         novaTarefaInput.value = descricaoTarefa;
     }
 
     botaoApagar.onclick = () => {
         botaoApagar.parentElement.remove();
         listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+        salvarLocal();
+    }
+    
+    checkbox.onclick = () => {
+        listaTarefasCompletas.appendChild(tarefa)
+        salvarLocal();
     }
 
-    tarefa.appendChild(checkbox);
-    tarefa.appendChild(label);
-    tarefa.appendChild(botaoApagar);
-    tarefa.appendChild(botaoEditar);
 
     return tarefa;
 }
@@ -59,28 +66,45 @@ function validaTextoTarefa(texto: string) {
     return texto.length > 0;
 }
 
+let salvarLocal = function () {
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+}
+
+let carregarLocal = function () {
+    JSON.parse(localStorage.getItem("listaTarefas")).forEach((element: Tarefa) => {
+        if (element.completa === true) {
+            listaTarefasCompletas.appendChild(criarTarefa(element.descrição))
+        } 
+        else {
+            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição)) 
+        }
+    });
+}
+
 let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
-        console.log(listaTarefas)
-        let tarefa = criarTarefa(novaTarefaInput.value);
         let tarefaDescricao = novaTarefaInput.value
         let tarefaIndex: Tarefa =  {descrição: tarefaDescricao, completa: false}
-        listaTarefasIncompletas.appendChild(tarefa);
-        
         listaTarefas.push(tarefaIndex);
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-        console.log(localStorage);
-        novaTarefaInput.value = "";
+        salvarLocal();
+        carregarLocal();
     }
     else {
         console.log(listaTarefas)
         alert("A tarefa deve ter ao menos um caractere")
     }
+    novaTarefaInput.value = "";
+
 }
 let limparTudo = function() {
     localStorage.clear();
     location.reload();
 }
 
+
+window.onload = () => {
+    carregarLocal()
+};
+
 botaoAdicionar.addEventListener('click', adicionaTarefa);
-botaoLimpar.addEventListener ('click', limparTudo)
+botaoLimpar.addEventListener ('click', limparTudo);

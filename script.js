@@ -24,46 +24,63 @@ var criarTarefa = function (descricaoTarefa) {
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
+    tarefa.appendChild(checkbox);
+    tarefa.appendChild(label);
+    tarefa.appendChild(botaoApagar);
+    tarefa.appendChild(botaoEditar);
     botaoEditar.onclick = function () {
         botaoEditar.parentElement.remove();
         listaTarefas = listaTarefas.filter(function (element) { return element.descrição !== descricaoTarefa; });
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+        salvarLocal();
         novaTarefaInput.value = descricaoTarefa;
     };
     botaoApagar.onclick = function () {
         botaoApagar.parentElement.remove();
         listaTarefas = listaTarefas.filter(function (element) { return element.descrição !== descricaoTarefa; });
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+        salvarLocal();
     };
-    tarefa.appendChild(checkbox);
-    tarefa.appendChild(label);
-    tarefa.appendChild(botaoApagar);
-    tarefa.appendChild(botaoEditar);
+    checkbox.onclick = function () {
+        listaTarefasCompletas.appendChild(tarefa);
+        salvarLocal();
+    };
     return tarefa;
 };
 function validaTextoTarefa(texto) {
     return texto.length > 0;
 }
+var salvarLocal = function () {
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
+};
+var carregarLocal = function () {
+    JSON.parse(localStorage.getItem("listaTarefas")).forEach(function (element) {
+        if (element.completa === true) {
+            listaTarefasCompletas.appendChild(criarTarefa(element.descrição));
+        }
+        else {
+            listaTarefasIncompletas.appendChild(criarTarefa(element.descrição));
+        }
+    });
+};
 var adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
-        console.log(listaTarefas);
-        var tarefa = criarTarefa(novaTarefaInput.value);
         var tarefaDescricao = novaTarefaInput.value;
         var tarefaIndex = { descrição: tarefaDescricao, completa: false };
-        listaTarefasIncompletas.appendChild(tarefa);
         listaTarefas.push(tarefaIndex);
-        localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-        console.log(localStorage);
-        novaTarefaInput.value = "";
+        salvarLocal();
+        carregarLocal();
     }
     else {
         console.log(listaTarefas);
         alert("A tarefa deve ter ao menos um caractere");
     }
+    novaTarefaInput.value = "";
 };
 var limparTudo = function () {
     localStorage.clear();
     location.reload();
+};
+window.onload = function () {
+    carregarLocal();
 };
 botaoAdicionar.addEventListener('click', adicionaTarefa);
 botaoLimpar.addEventListener('click', limparTudo);
