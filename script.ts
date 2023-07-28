@@ -1,6 +1,10 @@
 let novaTarefaInput = document.getElementById('nova-tarefa') as HTMLInputElement;
 let botaoAdicionar = document.getElementById('botao-adicionar');
+let botoaoApagar = document.getElementsByClassName('botao-apagar');
+let botaoEditar = document.getElementsByClassName('botao-editar');
+let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
+
 
 let criarTarefa = function (descricaoTarefa: string) {
     // <li>
