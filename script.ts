@@ -2,9 +2,15 @@ let novaTarefaInput = document.getElementById('nova-tarefa') as HTMLInputElement
 let botaoAdicionar = document.getElementById('botao-adicionar');
 let botaoApagar = document.getElementsByClassName('botao-apagar');
 let botaoEditar = document.getElementsByClassName('botao-editar');
+let botaoLimpar = document.getElementById('botao-limpar');
 let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
 
+type Tarefa = {
+    descrição: string;
+    completa: boolean;
+}
+let tarefas: Tarefa[];
 
 let criarTarefa = function (descricaoTarefa: string) {
     // <li>
@@ -15,13 +21,10 @@ let criarTarefa = function (descricaoTarefa: string) {
     // </li>
 
     let tarefa = document.createElement("li");
-
     let checkbox = document.createElement("input");
     let label = document.createElement("label");
     let botaoApagar = document.createElement("button");
     let botaoEditar = document.createElement("button");
-
-
 
     checkbox.type = 'checkbox';
     botaoApagar.className = 'apagar';
@@ -29,7 +32,6 @@ let criarTarefa = function (descricaoTarefa: string) {
     botaoEditar.className = 'editar';
     botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
-
 
     tarefa.appendChild(checkbox);
     tarefa.appendChild(label);
@@ -52,6 +54,9 @@ let adicionaTarefa = function () {
         alert("A tarefa deve ter ao menos um caractere")
     }
 }
-
+let limparTudo = function() {
+    localStorage.clear();
+}
 
 botaoAdicionar.addEventListener('click', adicionaTarefa);
+botaoLimpar.addEventListener ('click', limparTudo)

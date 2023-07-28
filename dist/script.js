@@ -2,8 +2,10 @@ let novaTarefaInput = document.getElementById('nova-tarefa');
 let botaoAdicionar = document.getElementById('botao-adicionar');
 let botaoApagar = document.getElementsByClassName('botao-apagar');
 let botaoEditar = document.getElementsByClassName('botao-editar');
+let botaoLimpar = document.getElementById('botao-limpar');
 let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
+let tarefas;
 let criarTarefa = function (descricaoTarefa) {
     let tarefa = document.createElement("li");
     let checkbox = document.createElement("input");
@@ -34,4 +36,8 @@ let adicionaTarefa = function () {
         alert("A tarefa deve ter ao menos um caractere");
     }
 };
+let limparTudo = function () {
+    localStorage.clear();
+};
 botaoAdicionar.addEventListener('click', adicionaTarefa);
+botaoLimpar.addEventListener('click', limparTudo);
