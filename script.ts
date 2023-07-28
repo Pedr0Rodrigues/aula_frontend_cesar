@@ -94,6 +94,7 @@ let adicionaTarefa = function () {
         alert("A tarefa deve ter ao menos um caractere")
     }
     novaTarefaInput.value = "";
+    location.reload();
 
 }
 let limparTudo = function() {

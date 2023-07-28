@@ -74,6 +74,7 @@ var adicionaTarefa = function () {
         alert("A tarefa deve ter ao menos um caractere");
     }
     novaTarefaInput.value = "";
+    location.reload();
 };
 var limparTudo = function () {
     localStorage.clear();
