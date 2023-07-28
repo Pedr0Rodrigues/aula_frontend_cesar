@@ -51,20 +51,30 @@ let criarTarefa = function (descricaoTarefa: string) {
         botaoApagar.parentElement.remove();
         listaTarefas = listaTarefas.filter((element) => element.descrição !== descricaoTarefa);
         salvarLocal();
-    }
+    };
     
     checkbox.onclick = () => {
-        listaTarefasCompletas.appendChild(tarefa)
+        listaTarefas.forEach((tarefa) => {
+            if (tarefa.descrição == descricaoTarefa) {
+                tarefa.completa = checkbox.checked;
+            }
+        });
         salvarLocal();
-    }
-
-
+        recarregarLocal();
+    };
+    
+        
     return tarefa;
 }
 
 function validaTextoTarefa(texto: string) {
     return texto.length > 0;
 }
+
+
+let recarregarLocal = function() {
+    location.reload();
+};
 
 let salvarLocal = function () {
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
@@ -97,6 +107,8 @@ let adicionaTarefa = function () {
     location.reload();
 
 }
+
+
 let limparTudo = function() {
     localStorage.clear();
     location.reload();

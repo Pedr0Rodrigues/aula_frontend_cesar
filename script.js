@@ -40,14 +40,22 @@ var criarTarefa = function (descricaoTarefa) {
         salvarLocal();
     };
     checkbox.onclick = function () {
-        listaTarefasCompletas.appendChild(tarefa);
+        listaTarefas.forEach(function (tarefa) {
+            if (tarefa.descrição == descricaoTarefa) {
+                tarefa.completa = checkbox.checked;
+            }
+        });
         salvarLocal();
+        recarregarLocal();
     };
     return tarefa;
 };
 function validaTextoTarefa(texto) {
     return texto.length > 0;
 }
+var recarregarLocal = function () {
+    location.reload();
+};
 var salvarLocal = function () {
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
 };
