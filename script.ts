@@ -19,13 +19,15 @@ let criarTarefa = function (descricaoTarefa: string) {
     let checkbox = document.createElement("input");
     let label = document.createElement("label");
     let botaoApagar = document.createElement("button");
+    let botaoEditar = document.createElement("button");
+
 
 
     checkbox.type = 'checkbox';
     botaoApagar.className = 'apagar';
     botaoApagar.innerText = 'Apagar';
-    //botaoEditar.className = 'editar';
-    //botaoEditar.innerText = 'Editar';
+    botaoEditar.className = 'editar';
+    botaoEditar.innerText = 'Editar';
     label.innerText = descricaoTarefa;
 
 
@@ -45,7 +47,7 @@ let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
         let tarefa = criarTarefa(novaTarefaInput.value)
         listaTarefasIncompletas.appendChild(tarefa);
-    } {alert("A tarefa deve ter ao menos um caractere.")}
+    } {alert("A tarefa deve ter ao menos um caractere")}
 }
 
 
