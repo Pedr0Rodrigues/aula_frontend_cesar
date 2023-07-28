@@ -34,7 +34,7 @@ let criarTarefa = function (descricaoTarefa: string) {
     tarefa.appendChild(botaoApagar);
     tarefa.appendChild(botaoEditar);
 
-    return tarefa
+    return tarefa;
 }
 
 function validaTextoTarefa(texto: string) {
@@ -45,7 +45,7 @@ let adicionaTarefa = function () {
     if (validaTextoTarefa(novaTarefaInput.value)) {
         let tarefa = criarTarefa(novaTarefaInput.value)
         listaTarefasIncompletas.appendChild(tarefa);
-    }
+    } {alert: "A tarefa deve ter ao menos um caractere!"}
 }
 
 
