@@ -11,7 +11,7 @@ type Tarefa = {
     completa: boolean;
     //id: number;
 }
-let listaTarefas: Tarefa[] = []
+let listaTarefas: Tarefa[] = JSON.parse(localStorage.getItem("listaTarefas") || "[]");
 
 let criarTarefa = function (descricaoTarefa: string) {
     // <li>
@@ -67,6 +67,7 @@ let adicionaTarefa = function () {
 }
 let limparTudo = function() {
     localStorage.clear();
+    location.reload();
 }
 
 botaoAdicionar.addEventListener('click', adicionaTarefa);

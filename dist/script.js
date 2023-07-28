@@ -5,7 +5,7 @@ let botaoEditar = document.getElementsByClassName('botao-editar');
 let botaoLimpar = document.getElementById('botao-limpar');
 let listaTarefasCompletas = document.getElementById('completas');
 let listaTarefasIncompletas = document.getElementById('incompletas');
-let listaTarefas = [];
+let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas") || "[]");
 let criarTarefa = function (descricaoTarefa) {
     let tarefa = document.createElement("li");
     let checkbox = document.createElement("input");
@@ -47,6 +47,7 @@ let adicionaTarefa = function () {
 };
 let limparTudo = function () {
     localStorage.clear();
+    location.reload();
 };
 botaoAdicionar.addEventListener('click', adicionaTarefa);
 botaoLimpar.addEventListener('click', limparTudo);
