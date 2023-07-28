@@ -21,7 +21,12 @@ button {
     margin: 10px 0 0;
     cursor: pointer;
 }
-
+button#botao-limpar {
+    color: #ff1111;
+    width: auto;
+    font-size: 15px;
+    margin-left: 200px;
+}
 h3,
 label[for='nova-tarefa'] {
     color: #333;
